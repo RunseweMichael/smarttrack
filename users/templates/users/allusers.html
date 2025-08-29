@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %}
+{% block title %}Smarttrack Users{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+  .logo_img{
+            border-radius: 50%;
+        }
+  body{
+        background-image: url('{% static "/users/images/bg3.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        text-shadow: 5px 2px 3px rgb(20,20,29,0.7);
+    }
+</style>
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="font-size: 15px; position: sticky;top: 0; left: 0;z-index: 10; backdrop-filter: blur(20px);">
+        <div class="container">
+            <img src="{% static 'users/images/smarttrack_logo.jpg' %}" alt="a nice logo of smarttrack company" height="25px" width="25px>" class=" me-2 logo_img">
+            <a class="navbar-brand fw-bold" href="#" style="text-shadow: 5px 2px 3px rgb(20, 20, 29);">SmartTrack <i class="bi bi-rocket-takeoff-fill ms-2"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'allcategories' %}">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'products_list' %}">Products</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'contact' %}">Contact</a></li>
+                    <div class="home_btn">
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'allusers' %}" class="btn btn-success ms-2"><i class="bi bi-database-fill-add me-2"></i>View All Users</a>
+                    {% endif %}
+
+                    <a class="btn btn-danger ms-2" href="{% url 'logout_view' %}"><i class="bi bi-person-fill-exclamation me-2"></i>Logout</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+<div>
+<h2 class="text-center text-primary pt-5 pb-3 fw-bold">REGISTERED USERS <i class="bi bi-clipboard2-check text-primary ms-2"></i></h2>
+<div class="container">
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <p class="text-white text-left mb-4">
+    Below is a complete list of all users who have registered on <strong>Smarttrack</strong>.  
+    This section is restricted to <strong>staff members</strong> only and provides oversight into user activity, 
+    registration details, and account status.
+  </p>
+      
+<table class="table table-dark caption-top align-middle table-sm table-striped table-bordered border-secondary">
+  <thead>
+    <caption class="text-white fw-bold">Smarttrack Registered Users</caption>
+    <tr class="table-light table-bordered" style="text-shadow: none;">
+      <th scope="col" class="text-dark text-center">ID</th>
+      <th scope="col" class="text-dark text-center">First Name</th>
+      <th scope="col" class="text-dark text-center">Last Name</th>
+      <th scope="col" class="text-dark text-center">Username</th>
+      <th scope="col" class="text-dark text-center">Age</th>
+      <th scope="col" class="text-dark text-center">Phone Number</th>
+      <th scope="col" class="text-dark text-center">Email</th>
+      <th scope='col' class="text-dark text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for client in allusers %}
+    <tr>
+      <td class="text-center fw-bold" >{{ client.id }}</td>
+      <td class="text-center fw-bold">{{ client.user.first_name }}</td>
+      <td class="text-center fw-bold">{{ client.user.last_name }}</td>
+      <td class="text-center fw-bold">{{ client.user.username }}</td>
+      <td class="text-center fw-bold">{{ client.age }}</td>
+      <td class="text-center fw-bold">{{ client.phone }}</td>
+      <td class="text-center fw-bold">{{ client.user.email }}</td>
+      <td class="d-flex justify-content-around align-items-center">
+        <button type="button" class="btn me-1 btn-danger"><a href="{% url 'deleteuser' client.id %}" class="text-decoration-none text-white">Delete</a></button>
+        <button type="button" class="btn btn-success"><a href="{% url 'updateuser' client.id %}" class="text-decoration-none text-white">Update</a></button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="mb-5">
+<a href="{% url 'home' %}" class="btn btn-primary me-1 btn-lg" style="text-shadow: none;">Homepage</a>
+<a href="{% url 'products_list' %}" class="btn btn-primary me-1 btn-lg" style="text-shadow: none;">All Products</a>
+<a href="{% url 'allcategories' %}" class="btn btn-primary me-1 btn-lg" style="text-shadow: none;">All Catgories</a>
+</div>
+
+</div>
+</div>
+</div>
+
+<footer class=" text-white pt-2 pb-1 text-center">
+        <p class="mb-0 pt-1" style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">© 2025 SmartTrack | All Rights Reserved</p>
+        <p style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">Built With <i class="bi bi-heart-pulse-fill text-danger"></i> By Runsewe Michael(The CodeKing👑)</p>
+    </footer>
+{% endblock %}
+

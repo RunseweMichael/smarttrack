@@ -1,0 +1,113 @@
+{% extends 'users/base.html' %}
+{% block title %}Smarttrack Users{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    .logo_img{
+            border-radius: 50%;
+        }
+
+  body{
+        background-image: url('{% static "/users/images/bg11.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        text-shadow: 5px 2px 3px rgb(20,20,29,0.7);
+        /* backdrop-filter: blur(2px); */
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm " style="font-size: 14px; position: sticky;top: 0; left: 0;z-index: 10; backdrop-filter: blur(20px);">
+        <div class="container">
+            <img src="{% static 'users/images/smarttrack_logo.jpg' %}" alt="a nice logo of smarttrack company" height="25px" width="25px>" class=" me-2 logo_img">
+            <a class="navbar-brand fw-bold" href="#" style="text-shadow: 5px 2px 3px rgb(20, 20, 29);">SmartTrack <i class="bi bi-rocket-takeoff-fill ms-2"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" style="font-size: 16px;">
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'allcategories' %}">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'products_list' %}">Products</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'contact' %}">Contact</a></li>
+                    <div class="home_btn">
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'allusers' %}" class="btn btn-success ms-2"><i class="bi bi-database-fill-add me-2"></i>View All Users</a>
+                    {% endif %}
+
+                    <a class="btn btn-danger ms-2" href="{% url 'logout_view' %}"><i class="bi bi-person-fill-exclamation me-2"></i>Logout</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container my-4" style="font-size: 20px; z-index: 1; backdrop-filter: blur(3px);">
+  <h2 class="text-center text-primary fw-bold mb-4">ABOUT US</h2>
+  <p class="text-white">
+    Welcome to <strong>Smarttrack</strong>, your trusted destination for innovative, reliable, 
+    and affordable products. We believe that great products should not only meet your needs 
+    but also enrich your lifestyle. From technology to fashion, books to home essentials, 
+    we provide a diverse range of categories designed to keep you connected, inspired, and equipped.  
+  </p>
+
+  <h4 class="text-primary text-primary fw-bold mt-4" style="font-size: 24px; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Our Story</h4>
+  <p class="text-white">
+    Smarttrack was founded with a simple goal: to make quality products accessible to everyone.  
+    What started as a small vision has grown into a trusted platform where customers can explore 
+    a wide variety of categories under one roof. We are passionate about bridging the gap between 
+    innovation and everyday living.  
+  </p>
+
+  <h4 class="text-primary fw-bold mt-4" style="font-size: 24px; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Our Vision</h4>
+      <p class="text-white">
+        Our vision is to be a trusted destination where technology, style, knowledge, and 
+        everyday living meet. We strive to create an ecosystem where customers can explore, 
+        discover, and purchase products that enhance both their professional and personal lives.
+        We envision a future where Smarttrack is synonymous with convenience and quality.  
+      </p>
+
+      <h4 class="text-primary fw-bold mt-4" style="font-size: 24px; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Our Mission</h4>
+      <p class="text-white">
+        Smarttrack’s mission is to make life easier, smarter, and more enjoyable by providing 
+        a wide range of products backed by quality, affordability, and excellent customer service. We aim to 
+        deliver products that combine quality, functionality, and style. 
+        We are committed to continuous improvement, so our customers 
+    always get the best value possible.
+      </p>
+
+  <h4 class="text-primary fw-bold mt-4" style="font-size: 24px; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Our Values</h4>
+  <ul class="text-white">
+    <li><strong>Customer First:</strong> Everything we do is guided by the needs of our customers.</li>
+    <li><strong>Integrity:</strong> We operate with honesty and transparency in all our dealings.</li>
+    <li><strong>Quality:</strong> Only the best products make it into our catalog.</li>
+    <li><strong>Innovation:</strong> We embrace change and strive to stay ahead of the curve.</li>
+    <li><strong>Sustainability:</strong> We care about the future and make mindful business choices.</li>
+  </ul>
+
+  <h4 class="text-primary fw-bold mt-4" style="font-size: 24px;text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Why Choose Smarttrack?</h4>
+      <p class="text-white">
+        We go beyond just selling products. At Smarttrack, we focus on creating value and building trust. 
+        Here’s why thousands of customers choose us:
+      </p>
+      <ul class="text-white">
+        <li><strong>Wide Selection</strong> – From gadgets to garments, our range covers all your needs in one place.</li>
+        <li><strong>Affordable Pricing</strong> – Competitive prices without compromising on quality.</li>
+        <li><strong>Customer Satisfaction</strong> – Dedicated support and hassle-free returns to ensure a smooth experience.</li>
+        <li><strong>Trusted Quality</strong> – We carefully source our products to guarantee durability and reliability.</li>
+        <li><strong>Innovation</strong> – We stay ahead of trends to bring you the latest and most useful products.</li>
+      </ul>
+
+  <p class="text-white fw-bold mt-4">
+    Thank you for choosing Smarttrack — where quality meets trust.
+  </p>
+</div>
+
+<footer class=" text-white pt-2 pb-1 text-center">
+        <p class="mb-0 pt-1" style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">© 2025 SmartTrack | All Rights Reserved</p>
+        <p style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">Built With <i class="bi bi-heart-pulse-fill text-danger"></i> By Runsewe Michael(The CodeKing👑)</p>
+    </footer>
+
+
+{% endblock %}

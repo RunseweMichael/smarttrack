@@ -1,0 +1,47 @@
+{% extends 'category/base.html' %}
+
+    {% block title %}Smarttrack - Add New Products{% endblock %}
+
+    {% block content %}
+     {% load static %}
+    <style>
+    body{
+        background-image: url('{% static "category/Images/bg12.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+</style>
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card bg-transparent shadow-lg p-4" style="max-width: 500px; width: 100%; backdrop-filter: blur(2px);">
+    <h2 class='text-center mb-4 text-primary fw-bold'>UPDATE CATEGORY <i class="bi bi-bag-check-fill text-primary ms-2"></i></h2>
+    <form action="{% url 'updatecategory' category.id %}" method="POST">
+        {% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="mb-2 text-white fw-bold">Category Name</label>
+    <input type="text" class="form-control mb-3" value="{{ category.name }}" name="name" id="name" aria-describedby="name" required autofocus>
+  </div>
+
+  <div class="mb-3">
+    <label for="slug" class="mb-2 text-white fw-bold">Slug</label>
+    <input type="text" class="form-control mb-3"  value="{{ category.slug }}" name="slug" id="slug" aria-describedby="category slug" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="desc" class="mb-2 text-white fw-bold">Description</label>
+    <textarea class="form-control mb-3" name='desc' id="desc" aria-describedby="description" required>{{ category.description }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="qty" class="mb-2 text-white fw-bold">Quantity</label>
+    <input type="number" class="form-control mb-3" disabled value="{{ category.quantity }}" name='qty' id="qty" aria-describedby="qty" required>
+  </div>
+  
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+<br>
+<a href="{% url 'allcategories' %}" class="btn btn-primary btn-lg">All Categories</a>
+
+    {% endblock %}

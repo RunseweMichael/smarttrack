@@ -1,0 +1,48 @@
+{% extends 'category/base.html' %}
+
+    {% block title %}Smarttrack - Add New Products{% endblock %}
+
+    {% block content %}
+     {% load static %}
+    <style>
+    body{
+        background-image: url('{% static "/category/Images/bg9.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+        text-shadow: 5px 2px 3px rgb(20, 20, 29, 0.7);
+        font-size: 18px
+    }
+</style>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card bg-transparent shadow-lg p-4" style="max-width: 500px; width: 100%;">
+    <h3 class='text-center mb-4 text-primary fw-bold'>ADD NEW CATEGORY <i class="bi bi-bag-check-fill text-primary ms-2"></i></h3>
+    <form action="{% url 'createcategory' %}" method="POST">
+        {% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="mb-2 text-white fw-bold">Category Name</label>
+    <input type="text" class="form-control mb-3" name="name" id="name" aria-describedby="name" required autofocus>
+  </div>
+
+  <div class="mb-3">
+    <label for="slug" class="mb-2 text-white fw-bold">Slug</label>
+    <input type="text" class="form-control mb-3" name="slug" id="slug" aria-describedby="category slug" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="desc" class="mb-2 text-white fw-bold">Description</label>
+    <textarea class="form-control mb-3" name='desc' id="desc" aria-describedby="description" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="qty" class="mb-2 text-white fw-bold">Quantity</label>
+    <input type="number" class="form-control mb-3" name='qty' id="qty" aria-describedby="qty" required>
+  </div>
+  
+  <button type="submit" class="btn btn-primary btn-lg" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Submit</button>
+</form>
+<br>
+<a href="{% url 'allcategories' %}" class="btn btn-primary fw-bold btn-lg" style="text-decoration: none;">All Categories</a>
+
+    {% endblock %}

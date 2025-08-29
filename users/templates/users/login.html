@@ -1,0 +1,46 @@
+{% extends 'users/base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}Log In to SmartTrack{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<style>
+    body{
+        background-image: url('{% static "/users/images/welcome_bg4.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+</style>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card bg-transparent shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4 text-primary fw-bold" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">LOG IN <i class="bi bi-fingerprint ms-2 text-primary"></i></h2>
+
+        <form action='{% url "login" %}' method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                {% render_field form.username class="form-control" placeholder="Username" %}
+            </div>
+
+            <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                {% render_field form.password class="form-control" placeholder="Password" %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-bluesky me-2" style="font-size: 1rem; color: white;"></i> Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="mb-0 text-white">Don't have an account? 
+                <a href="{% url 'register' %}" class="text-decoration-none fw-bold" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Register here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

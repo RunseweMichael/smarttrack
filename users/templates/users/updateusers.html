@@ -1,0 +1,66 @@
+{% extends 'users/base.html' %}
+
+    {% block title %}Update Users - SmartTrack{% endblock %}
+
+    {% block content %}
+    {% load static %}
+    <style>
+    body{
+        background-image: url('{% static "/users/images/welcome_bg3.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card bg-transparent shadow-lg p-4" style="max-width: 500px; width: 100%;">
+        <h2 class="text-center mb-4 text-primary fw-bold">UPDATE USER DETAILS<i class="bi bi-database-fill-add text-primary ms-3"></i></h2>
+<form action="{% url 'updateuser' update.id %}" method="POST">
+    {% csrf_token %}
+        <label for="fname" class="mb-2 text-white fw-bold">First Name</label> <br>
+        <div class="input-group">
+        <input class="form-control mb-3" type="text" value="{{ update.user.first_name }}" name="fname" id="fname" required autofocus>
+        </div> 
+
+        <label for="lname" class="mb-2 text-white fw-bold">Last Name</label> <br>
+        <div class="mb-1 input-group">
+        <input class="form-control mb-3" type="text" value="{{ update.user.last_name }}" name="lname" id="lname" required>
+        </div>
+
+        <label for="uname" class="mb-2 text-white fw-bold">Username</label> <br>
+        <div class="mb-1 input-group">
+        <input class="form-control mb-3" type="text" value="{{ update.user.username }}" name="uname" id="uname" required>
+        </div>
+
+        <label for="age" class="mb-2 text-white fw-bold">Age</label> <br>
+        <div class="mb-1 input-group">
+        <input class="form-control mb-3" type="number" value="{{ update.age }}" name="age" id="age" required>
+        </div>
+
+        <label for="phone" class="mb-2 text-white fw-bold">Phone Number</label> <br>
+        <div class="mb-1 input-group">
+        <input class="form-control mb-3" type="number" value="{{ update.phone }}" name="phone" id="phone" required>
+        </div>
+
+        <label for="email" class="mb-2 text-white fw-bold">Email</label> <br>
+        <div class="mb-1 input-group">
+        <input class="form-control mb-3" type="email" value="{{ update.user.email }}" name="email" id="email" required>
+        </div>
+
+    <button type="submit" class="btn btn-primary w-100 mb-3"><i class="bi bi-bluesky me-2" style="font-size: 1rem; color: white;"></i> Update</button>
+    
+    <div class="d-flex justify-content-between mt-2">
+        {% if request.user.is_staff %}
+            <a href="{% url 'allusers' %}" class="btn btn-primary">View All Users</a>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn btn-primary">Go to Homepage</a>
+    </div>
+
+</form>
+   </div>
+</div>
+
+   {% endblock %}

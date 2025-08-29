@@ -1,0 +1,101 @@
+{% extends 'users/base.html' %}
+{% block title %}Contact Us - Smarttrack{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+  body {
+      background-image: url('{% static "users/Images/contact.jpg" %}');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      font-size: 18px;
+      /* backdrop-filter: blur(3px); */
+      color: white;
+  }
+  .contact-card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="font-size: 15px; position: sticky;top: 0; left: 0;z-index: 10; backdrop-filter: blur(20px);">
+        <div class="container">
+            <img src="{% static 'users/images/smarttrack_logo.jpg' %}" alt="a nice logo of smarttrack company" height="25px" width="25px>" class=" me-2 logo_img">
+            <a class="navbar-brand fw-bold" href="#" style="text-shadow: 5px 2px 3px rgb(20, 20, 29);">SmartTrack <i class="bi bi-rocket-takeoff-fill ms-2"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'allcategories' %}">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'products_list' %}">Products</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'contact' %}">Contact</a></li>
+                    <div class="home_btn">
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'allusers' %}" class="btn btn-success ms-2"><i class="bi bi-database-fill-add me-2"></i>View All Users</a>
+                    {% endif %}
+
+                    <a class="btn btn-danger ms-2" href="{% url 'logout_view' %}"><i class="bi bi-person-fill-exclamation me-2"></i>Logout</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="contact-card">
+        <h2 class="text-primary fw-bold text-center mb-4" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);">
+          Get in Touch with Smarttrack
+        </h2>
+        <p class="text-white text-center mb-4">
+          Have a question about our products, services, or your orders?  
+          We’d love to hear from you! Reach out through the form below or use our direct contact details.  
+        </p>
+
+        <!-- Contact Form -->
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label text-white">Your Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-white">Email Address</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-white">Message</label>
+            <textarea class="form-control" name="message" rows="4" placeholder="Type your message here..." required></textarea>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+          </div>
+        </form>
+
+        <!-- Direct Contact Info -->
+        <div class="mt-5">
+          <h4 class="text-primary fw-bold">Our Contact Details</h4>
+          <ul class="list-unstyled text-white">
+            <li><i class="bi bi-geo-alt-fill text-primary"></i> Smarttrack HQ, 123 Innovation Street, Tech City</li>
+            <li><i class="bi bi-telephone-fill text-primary"></i> +1 (234) 567-890</li>
+            <li><i class="bi bi-envelope-fill text-primary"></i> support@smarttrack.com</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class=" text-white pt-2 pb-1 text-center">
+        <p class="mb-0 pt-1" style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">© 2025 SmartTrack | All Rights Reserved</p>
+        <p style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">Built With <i class="bi bi-heart-pulse-fill text-danger"></i> By Runsewe Michael(The CodeKing👑)</p>
+    </footer>
+{% endblock %}

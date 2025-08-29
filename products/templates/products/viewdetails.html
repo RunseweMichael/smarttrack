@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product Detail</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'products/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    {% load static %}
+    <style>
+    body{
+        background-image: url('{% static "products/Images/bg11.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+</style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-primary fw-bold" style="text-shadow: none;text-transform: uppercase;">{{ product.name }}</h2>
+        <div class="row d-flex justify-content-around align-items-center">
+        <div class="col-md-6">
+        <p style="text-shadow: none;"><strong class="fw-bold">SKU:</strong> {{ product.sku }}</p>
+        <p style="text-shadow: none;"><strong style="text-shadow: none;">Description:</strong> {{ product.description }}</p>
+        <p style="text-shadow: none;"><strong style="text-shadow: none;">Category:</strong> {{ product.category }}</p>
+        <p style="text-shadow: none;"><strong style="text-shadow: none;">Price:</strong> &#8358;{{ product.price }}</p>
+        <p style="text-shadow: none;"><strong style="text-shadow: none;">Stock:</strong> {{ product.quantity }}</p>
+        </div>
+        <div class="col-md-6">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid img-responsive mb-3 rounded">
+        {% else %}
+            <p class="text-muted fst-italic" style="text-shadow: none;">No Image Available</p>
+        {% endif %}
+        </div>
+        </div>
+        <a href="{% url 'products_list' %}" class="btn btn-secondary mt-3">Back to Products</a>
+    </div>
+</div>
+</body>
+</html>

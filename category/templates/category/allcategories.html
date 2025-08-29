@@ -1,0 +1,147 @@
+{% extends 'category/base.html' %}
+{% block title %}Smarttrack Products{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    .logo_img{
+            border-radius: 50%;
+        }
+  body{
+        background-image: url('{% static "category/Images/bg8.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+        text-shadow:5px 2px 3px rgb(20, 20, 29); ;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="font-size: 16px; position: sticky;top: 0; left: 0;z-index: 10; backdrop-filter: blur(20px);">
+        <div class="container">
+            <img src="{% static 'users/images/smarttrack_logo.jpg' %}" alt="a nice logo of smarttrack company" height="25px" width="25px>" class=" me-2 logo_img">
+            <a class="navbar-brand fw-bold" href="#" style="text-shadow: 5px 2px 3px rgb(20, 20, 29);">SmartTrack <i class="bi bi-rocket-takeoff-fill ms-2"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'allcategories' %}">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'products_list' %}">Products</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'contact' %}">Contact</a></li>
+                    <div class="home_btn">
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'allusers' %}" class="btn btn-success ms-2"><i class="bi bi-database-fill-add me-2"></i>View All Users</a>
+                    {% endif %}
+
+                    <a class="btn btn-danger ms-2" href="{% url 'logout_view' %}"><i class="bi bi-person-fill-exclamation me-2"></i>Logout</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+<div class="container mb-5" style="font-size: 20px; backdrop-filter: blur(3px);">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-primary text-center fw-bold pt-3 mb-3" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Welcome to Smarttrack Products</h3>
+      <p class="text-white">
+        At <strong>Smarttrack</strong>, we are passionate about delivering innovative, reliable, 
+        and high-quality products that meet the needs of modern lifestyles. From advanced 
+        electronics to stylish fashion essentials, we bring together a variety of categories 
+        under one roof to ensure you find exactly what you’re looking for. 
+      </p>
+
+      <h4 class="text-primary fw-bold mt-4" style="font-size: 24px; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">Explore Our Product Categories</h4>
+      <p class="text-white" style="text-shadow: none;">
+        We have carefully curated product categories designed to suit the different needs of our customers. 
+        Each category is managed with attention to quality and innovation:
+      </p>
+      <ul class="text-white" style="text-shadow: none;">
+        <li><strong>Electronics</strong> – Cutting-edge smartphones, smartwatches, laptops, and accessories 
+            to keep you connected and productive.</li>
+        <li><strong>Fashion</strong> – Trendy apparel, footwear, and accessories that blend comfort and style 
+            for every occasion.</li>
+        <li><strong>Books</strong> – A diverse collection ranging from academic references to novels and 
+            motivational literature.</li>
+        <li><strong>Home & Living</strong> – Household essentials, kitchenware, and decorative items 
+            designed to bring convenience and elegance to your daily life.</li>
+        <li><strong>Sports & Fitness</strong> – Gear, apparel, and accessories to help you stay active, 
+            healthy, and energized.</li>
+        <li><strong>Health & Beauty</strong> – Personal care products, skincare solutions, and wellness 
+            essentials to keep you looking and feeling your best.</li>
+      </ul>
+
+      <p class="text-white mt-4" style="text-shadow: none;">
+        Browse through the categories listed below to explore our full catalog of products.  
+        Whether you are looking for the latest tech gadget, a stylish new outfit, or essential 
+        household items, Smarttrack has something for everyone.  
+      </p>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<h3 class="text-center text-primary pt-2 pb-1 fw-bold" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7); backdrop-filter: blur(3px)">ALL CATEGORIES <i class="bi bi-clipboard2-check text-primary ms-2"></i></h3>
+
+<div class="container" style="font-size: 20px; backdrop-filter: blur(3px);">
+  <div class="row">
+    <div class="col-12 table-responsive">
+<table class="table caption-top table-dark table-hover align-middle table-sm table-striped table-bordered border-secondary">
+  <thead>
+    <caption class="text-white fw-bold">Available Smarttrack Products</caption>
+    <tr class="table-light" style="text-shadow: none; font-size: 17px;">
+      <th scope="col" class="text-dark text-center fw-bold">ID</th>
+      <th scope="col" class="text-dark text-center fw-bold">Name</th>
+      <th scope="col" class="text-dark text-center fw-bold">Slug</th>
+      <th scope="col" class="text-dark text-center fw-bold">Description</th>
+      <th scope="col" class="text-dark text-center fw-bold">Quantity</th>
+      <th scope="col" class="text-dark text-center fw-bold">Date Created</th>
+      <th scope='col' class="text-dark text-center fw-bold">Last Update</th>
+      <th scope='col' class="text-dark text-center fw-bold">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in categories %}
+    <tr>
+      <td class="text-center fw-bold">{{ category.id }}</td>
+      <td class="text-center fw-bold">{{ category.name }}</td>
+      <td class="text-center fw-bold">{{ category.slug }}</td>
+      <td class="text-center fw-bold">{{ category.description }}</td>
+      <td class="text-center fw-bold">{{ category.quantity }}</td>
+      <td class="text-center fw-bold">{{ category.created_at }}</td>
+      <td class="text-center fw-bold">{{ category.updated_at }}</td>
+      <td>
+    <div class="d-flex flex-column gap-2">
+        <a href="{% url 'deletecategory' category.id %}" class="btn btn-danger btn-sm">Delete</a>
+        <a href="{% url 'updatecategory' category.id %}" class="btn btn-success btn-sm">Update</a>
+    </div>
+    </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'home' %}" class="btn btn-primary mb-3 me-1 btn-lg" style="text-shadow: none">Homepage</a>
+{% if request.user.is_staff %}
+<a href="{% url 'createcategory' %}" class="btn btn-primary mb-3 me-1 btn-lg" style="text-shadow: none">Add New Category</a>
+{% endif %}
+<a href="{% url 'products_list' %}" class="btn btn-primary mb-3 me-1 btn-lg" style="text-shadow: none">All Products</a>
+<a href="{% url 'searchcategory' %}" class="btn btn-primary mb-3 me-1 btn-lg" style="text-shadow: none">Search By Category</a>
+
+
+
+</div>
+</div>
+</div>
+
+ <footer class=" text-white pt-2 pb-1 text-center">
+        <p class="mb-0 pt-1" style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">© 2025 SmartTrack | All Rights Reserved</p>
+        <p style="font-size: 12px; text-shadow: 5px 2px 3px rgb(20, 20, 29);">Built With <i class="bi bi-heart-pulse-fill text-danger"></i> By Runsewe Michael(The CodeKing👑)</p>
+    </footer>
+{% endblock %}

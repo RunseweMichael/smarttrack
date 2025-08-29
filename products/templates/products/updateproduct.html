@@ -1,0 +1,96 @@
+{% extends 'users/base.html' %}
+
+    {% block title %}Smarttrack - Add New Products{% endblock %}
+
+    {% block content %}
+     {% load static %}
+    <style>
+    body{
+        background-image: url('{% static "products/Images/bg10.jpg" %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+</style>
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card bg-transparent shadow-lg p-4" style="max-width: 500px; width: 100%;backdrop-filter: blur(3px)">
+    <h2 class='text-center mb-4 text-primary fw-bold'>UPDATE PRODUCT <i class="bi bi-bag-check-fill text-primary ms-2"></i></h2>
+    <form action="{% url 'updateproduct' update.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="mb-2 text-white fw-bold">Product Name</label>
+    <input type="text" class="form-control mb-3" value="{{ update.name }}" name="name" id="name" aria-describedby="name" required autofocus>
+  </div>
+
+  <div class="mb-3">
+    <label for="sku" class="mb-2 text-white fw-bold">Stock Keeping Unit</label>
+    <input type="text" class="form-control mb-3" value="{{ update.sku }}" name="sku" id="sku" aria-describedby="stock keeping unit" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="desc" class="mb-2 text-white fw-bold">Description</label>
+    <textarea class="form-control mb-3" name='desc' id="desc" aria-describedby="description" required>{{ update.description }}</textarea>
+  </div>
+
+  <div class="mb-3">
+ <label for="category" class="mb-2 text-white fw-bold">Category</label>
+        <select class="form-control mb-3" name="category" id="category" aria-describedby="category" required>
+            {% for item in categories %}
+                <option>{{ item.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+  <div class="mb-3">
+    <label for="price" class="mb-2 text-white fw-bold">Price</label>
+    <input type="number" class="form-control mb-3" value="{{ update.price }}" name='price' id="price" aria-describedby="price" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="qty" class="mb-2 text-white fw-bold">Quantity</label>
+    <input type="number" class="form-control mb-3" value="{{ update.quantity }}" name='qty' id="qty" aria-describedby="qty" required>
+  </div>
+
+ <div class="mb-3">
+    <label for="img" class="mb-2 text-white fw-bold">Image</label>
+    
+    {% if update.image %}
+        <div class="mb-2">
+            <img src="{{ update.image.url }}" alt="{{ update.name }}" style="max-width: 200px; border: 2px solid #ddd; border-radius: 5px;">
+        </div>
+    {% else %}
+        <p class="text-muted fst-italic">No image uploaded</p>
+    {% endif %}
+
+    <input type="file" class="form-control mb-3" name="img" id="img" aria-describedby="img" accept="image/*" onchange="previewImage(event)">
+
+    <img id="preview" src="#" alt="Image Preview" style="max-width: 200px; display: none; margin-top: 10px;">
+</div>
+
+<script>
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    preview.src = URL.createObjectURL(event.target.files[0]);
+    preview.style.display = 'block';
+}
+</script>
+
+  
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+<br>
+
+<a href="{% url 'products_list' %}" class="btn btn-primary btn-lg">Go to All Products</a>
+
+
+<script>
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    preview.src = URL.createObjectURL(event.target.files[0]);
+    preview.style.display = 'block';
+}
+</script>
+
+    {% endblock %}
