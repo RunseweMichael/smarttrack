@@ -104,5 +104,5 @@ Thumbs.db
 *.rej
 *.sublime-project
 *.sublime-workspace
-
-
+node_modules/
+db.sqlite3
